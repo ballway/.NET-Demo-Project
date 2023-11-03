@@ -17,6 +17,12 @@ namespace BookProject.Contract.Persistence
         Book Get(string bookId);
 
         /// <summary>
+        /// 檢查指定書籍資料是否存在。
+        /// </summary>
+        /// <param name="bookId">書籍 Id。</param>
+        bool Exists(string bookId);
+
+        /// <summary>
         /// 新增一筆書籍資料。
         /// </summary>
         /// <param name="book">要新增的書籍資料。</param>

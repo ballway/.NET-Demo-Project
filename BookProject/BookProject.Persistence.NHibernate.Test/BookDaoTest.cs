@@ -22,6 +22,7 @@ namespace BookProject.Persistence.NHibernate.Test
         }
 
         [Test]
+        [Category("BookDao")]
         public void Test001_GetAll()
         {
             IList books = bookDao.GetAll();
@@ -30,6 +31,7 @@ namespace BookProject.Persistence.NHibernate.Test
         }
 
         [Test]
+        [Category("BookDao")]
         public void Test002_Get()
         {
             string bookId = "google-seo-book";
@@ -39,7 +41,18 @@ namespace BookProject.Persistence.NHibernate.Test
         }
 
         [Test]
-        public void Test003_Create()
+        [Category("BookDao")]
+        public void Test003_Exists()
+        {
+            string bookId = "google-seo-book";
+            bool result = bookDao.Exists(bookId);
+
+            Assert.That(result, Is.EqualTo(true));
+        }
+
+        [Test]
+        [Category("BookDao")]
+        public void Test004_Create()
         {
             Book newBook = new Book();
             newBook.BookId = GetGUID();
@@ -61,7 +74,8 @@ namespace BookProject.Persistence.NHibernate.Test
         }
 
         [Test]
-        public void Test004_Update()
+        [Category("BookDao")]
+        public void Test005_Update()
         {
             // 新增一筆測試資料
             Book newBook = new Book();
@@ -94,7 +108,8 @@ namespace BookProject.Persistence.NHibernate.Test
         }
 
         [Test]
-        public void Test005_Delete()
+        [Category("BookDao")]
+        public void Test006_Delete()
         {
             // 新增一筆測試資料
             Book newBook = new Book();
@@ -122,7 +137,8 @@ namespace BookProject.Persistence.NHibernate.Test
         }
 
         [Test]
-        public void Test006_GetAuthors()
+        [Category("BookDao")]
+        public void Test007_GetAuthors()
         {
             IList authors = bookDao.GetAuthors("google-seo-book");
             Author author = authors[0] as Author;
@@ -132,7 +148,8 @@ namespace BookProject.Persistence.NHibernate.Test
         }
 
         [Test]
-        public void Test007_GetCategories()
+        [Category("BookDao")]
+        public void Test008_GetCategories()
         {
             IList catrgories = bookDao.GetCategories("google-seo-book");
             Category category = catrgories[0] as Category;

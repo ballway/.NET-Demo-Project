@@ -10,13 +10,13 @@ namespace BookProject.Contract.Service
         /// <summary>
         /// 取得所有書籍資料。
         /// </summary>
-        IList GetAllBooks();
+        List<BookInfo> GetAllBooks();
 
         /// <summary>
         /// 取得一筆書籍資料。
         /// </summary>
         /// <param name="bookId">書籍 Id。</param>
-        Book GetBookById(string bookId);
+        BookInfo GetBookById(string bookId);
 
         /// <summary>
         /// 取得指定書籍的作者資料。
@@ -34,18 +34,18 @@ namespace BookProject.Contract.Service
         /// 新增一筆書籍資料。
         /// </summary>
         /// <param name="book">要新增的書籍資料。</param>
-        int CreateBook(BookInfo bookInfo);
+        void CreateBook(BookInfo bookInfo);
 
         /// <summary>
         /// 更新一筆書籍資料。
         /// </summary>
         /// <param name="book">要更新的書籍資料。</param>
-        int UpdateBook(BookInfo bookInfo);
+        void UpdateBook(BookInfo bookInfo);
 
         /// <summary>
         /// 刪除一筆書籍資料。
         /// </summary>
         /// <param name="book">要刪除的書籍資料。</param>
-        int DeleteBookById(string bookId);
+        void DeleteBookById(string bookId);
     }
 }

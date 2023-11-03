@@ -35,6 +35,22 @@ namespace BookProject.Service.Persistence.NHibernate
             return result[0] as Book;
         }
 
+        public bool Exists(string bookId)
+        {
+            string hql = "from Book as b where b.BookId=:bookId";
+            ISession session = GetSession();
+            IQuery query = session.CreateQuery(hql);
+            query.SetParameter("bookId", bookId);
+            if (query.List().Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public void Create(Book book)
         {
             ISession session = GetSession();
