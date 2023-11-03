@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Mapping\Author.hbm.xml" />
+    <None Remove="Mapping\AuthorBookEdge.hbm.xml" />
+    <None Remove="Mapping\Book.hbm.xml" />
+    <None Remove="Mapping\Category.hbm.xml" />
+    <None Remove="Mapping\CategoryBookEdge.hbm.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Mapping\Author.hbm.xml" />
+    <EmbeddedResource Include="Mapping\AuthorBookEdge.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Book.hbm.xml" />
+    <EmbeddedResource Include="Mapping\Category.hbm.xml" />
+    <EmbeddedResource Include="Mapping\CategoryBookEdge.hbm.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NHibernate" Version="5.4.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BookProject.Contract\BookProject.Contract.csproj" />
+  </ItemGroup>
+
+</Project>

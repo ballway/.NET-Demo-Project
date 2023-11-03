@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="BookProject.Contract.Domain" assembly="BookProject.Contract">
+	<class name="AuthorBookEdge" table="AUTHOR_BOOK_EDGE" lazy="false">
+		<composite-id>
+			<key-property name="AuthorId" column="AUTHOR_ID" type="string"/>
+			<key-property name="BookId" column="BOOK_ID" type="string"/>
+		</composite-id>
+	</class>
+</hibernate-mapping>
