@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" namespace="BookProject.Contract.Domain" assembly="BookProject.Contract">
+	<class name="Book" table="BOOK" lazy="false">
+		<id name="BookId" column="BOOK_ID" type="string">
+			<generator class="assigned"/>
+		</id>
+		<version name="Flag" column="FLAG_NUMBER"/>
+		<property name="DisplayName" column="DISPLAY_NAME" not-null="true" unique="false" type="string"/>
+		<property name="LastModifiedDateTime" column="LASTMODIFIED_DATETIME" not-null="false" unique="false" type="UtcDateTime"/>
+	</class>
+</hibernate-mapping>
