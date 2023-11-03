@@ -1,0 +1,28 @@
+﻿
+-- 清空資料
+TRUNCATE TABLE CATEGORY_BOOK_EDGE;
+TRUNCATE TABLE AUTHOR_BOOK_EDGE;
+DELETE FROM BOOK;
+DELETE FROM CATEGORY;
+DELETE FROM AUTHOR;
+
+GO
+
+-- Demo 用資料 (ID 在系統內會以 GUID 產生)
+
+insert into CATEGORY (CATEGORY_ID, FLAG_NUMBER, DISPLAY_NAME) values ('literature', 1, '文學');
+insert into CATEGORY (CATEGORY_ID, FLAG_NUMBER, DISPLAY_NAME) values ('travel', 1, '旅遊');
+insert into CATEGORY (CATEGORY_ID, FLAG_NUMBER, DISPLAY_NAME) values ('business', 1, '商業理財');
+insert into CATEGORY (CATEGORY_ID, FLAG_NUMBER, DISPLAY_NAME, PARENT_ID) values ('e-commerce', 1, '電子商務', 'business');
+
+insert into BOOK (BOOK_ID, FLAG_NUMBER, DISPLAY_NAME, LASTMODIFIED_DATETIME) values ('google-seo-book', 1, 'Google SEO 內容行銷實戰課', '1753/01/01');
+insert into BOOK (BOOK_ID, FLAG_NUMBER, DISPLAY_NAME, LASTMODIFIED_DATETIME) values ('japan-travel-book', 1, '2023 日本旅遊攻略', '1753/01/01');
+
+insert into AUTHOR (AUTHOR_ID, FLAG_NUMBER, DISPLAY_NAME) values ('michael', 1, '王麥克');
+insert into AUTHOR (AUTHOR_ID, FLAG_NUMBER, DISPLAY_NAME) values ('alice', 1, '愛莉絲');
+
+insert into CATEGORY_BOOK_EDGE (CATEGORY_ID, BOOK_ID) values ('e-commerce', 'google-seo-book');
+insert into CATEGORY_BOOK_EDGE (CATEGORY_ID, BOOK_ID) values ('travel', 'japan-travel-book');
+
+insert into AUTHOR_BOOK_EDGE (AUTHOR_ID, BOOK_ID) values ('michael', 'google-seo-book');
+insert into AUTHOR_BOOK_EDGE (AUTHOR_ID, BOOK_ID) values ('alice', 'japan-travel-book');

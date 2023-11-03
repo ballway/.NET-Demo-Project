@@ -1,0 +1,54 @@
+﻿
+-- [環境說明]
+-- 版本：SQLite
+
+drop table if exists BOOK;
+drop table if exists CATEGORY;
+drop table if exists AUTHOR;
+drop table if exists CATEGORY_BOOK_EDGE;
+drop table if exists AUTHOR_BOOK_EDGE;
+
+
+-- 書籍類別
+create table CATEGORY (
+  CATEGORY_ID TEXT not null,
+   FLAG_NUMBER INT not null,
+   DISPLAY_NAME TEXT not null,
+   PARENT_ID TEXT,
+   primary key (CATEGORY_ID)
+);
+
+-- 作者
+create table AUTHOR (
+  AUTHOR_ID TEXT not null,
+   FLAG_NUMBER INT not null,
+   DISPLAY_NAME TEXT not null,
+   primary key (AUTHOR_ID)
+);
+
+-- 書籍
+create table BOOK (
+  BOOK_ID TEXT not null,
+   FLAG_NUMBER INT not null,
+   DISPLAY_NAME TEXT not null,
+   LASTMODIFIED_DATETIME DATETIME,
+   primary key (BOOK_ID)
+);
+
+-- 書籍-書籍類別關聯表
+create table CATEGORY_BOOK_EDGE (
+  CATEGORY_ID TEXT not null,
+   BOOK_ID TEXT not null,
+   primary key (CATEGORY_ID, BOOK_ID),
+   constraint FK_CATEGORY_BOOK_EDGE_1 foreign key (CATEGORY_ID) references CATEGORY (CATEGORY_ID),
+   constraint FK_CATEGORY_BOOK_EDGE_2 foreign key (BOOK_ID) references BOOK (BOOK_ID)
+);
+
+-- 書籍-作者關聯表
+create table AUTHOR_BOOK_EDGE (
+  AUTHOR_ID TEXT not null,
+   BOOK_ID TEXT not null,
+   primary key (AUTHOR_ID, BOOK_ID),
+   constraint FK_AUTHOR_BOOK_EDGE_1 foreign key (AUTHOR_ID) references AUTHOR (AUTHOR_ID),
+   constraint FK_AUTHOR_BOOK_EDGE_2 foreign key (BOOK_ID) references BOOK (BOOK_ID)
+);

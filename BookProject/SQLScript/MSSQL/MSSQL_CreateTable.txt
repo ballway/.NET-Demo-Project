@@ -1,0 +1,60 @@
+﻿
+-- [環境說明]
+-- 版本：SQL2019
+
+if exists (select 1 from dbo.sysobjects where id = object_id(N'[FK_CATEGORY_BOOK_EDGE_1]') and parent_obj = object_id(N'CATEGORY_BOOK_EDGE'))  alter table CATEGORY_BOOK_EDGE  drop constraint FK_CATEGORY_BOOK_EDGE_1;
+if exists (select 1 from dbo.sysobjects where id = object_id(N'[FK_CATEGORY_BOOK_EDGE_2]') and parent_obj = object_id(N'CATEGORY_BOOK_EDGE'))  alter table CATEGORY_BOOK_EDGE  drop constraint FK_CATEGORY_BOOK_EDGE_2;
+if exists (select 1 from dbo.sysobjects where id = object_id(N'[FK_AUTHOR_BOOK_EDGE_1]') and parent_obj = object_id(N'AUTHOR_BOOK_EDGE'))  alter table AUTHOR_BOOK_EDGE  drop constraint FK_AUTHOR_BOOK_EDGE_1;
+if exists (select 1 from dbo.sysobjects where id = object_id(N'[FK_AUTHOR_BOOK_EDGE_2]') and parent_obj = object_id(N'AUTHOR_BOOK_EDGE'))  alter table AUTHOR_BOOK_EDGE  drop constraint FK_AUTHOR_BOOK_EDGE_2;
+
+if exists (select * from dbo.sysobjects where id = object_id(N'BOOK') and OBJECTPROPERTY(id, N'IsUserTable') = 1) drop table BOOK;
+if exists (select * from dbo.sysobjects where id = object_id(N'CATEGORY') and OBJECTPROPERTY(id, N'IsUserTable') = 1) drop table CATEGORY;
+if exists (select * from dbo.sysobjects where id = object_id(N'AUTHOR') and OBJECTPROPERTY(id, N'IsUserTable') = 1) drop table AUTHOR;
+if exists (select * from dbo.sysobjects where id = object_id(N'CATEGORY_BOOK_EDGE') and OBJECTPROPERTY(id, N'IsUserTable') = 1) drop table CATEGORY_BOOK_EDGE;
+if exists (select * from dbo.sysobjects where id = object_id(N'AUTHOR_BOOK_EDGE') and OBJECTPROPERTY(id, N'IsUserTable') = 1) drop table AUTHOR_BOOK_EDGE;
+
+
+-- 書籍類別
+create table CATEGORY (
+  CATEGORY_ID NVARCHAR(255) not null,
+   FLAG_NUMBER INT not null,
+   DISPLAY_NAME NVARCHAR(255) not null,
+   PARENT_ID NVARCHAR(255) null,
+   primary key (CATEGORY_ID)
+);
+
+-- 作者
+create table AUTHOR (
+  AUTHOR_ID NVARCHAR(255) not null,
+   FLAG_NUMBER INT not null,
+   DISPLAY_NAME NVARCHAR(255) not null,
+   primary key (AUTHOR_ID)
+);
+
+-- 書籍
+create table BOOK (
+  BOOK_ID NVARCHAR(255) not null,
+   FLAG_NUMBER INT not null,
+   DISPLAY_NAME NVARCHAR(255) not null,
+   LASTMODIFIED_DATETIME DATETIME not null,	
+   primary key (BOOK_ID)
+);
+
+-- 書籍-書籍類別關聯表
+create table CATEGORY_BOOK_EDGE (
+  CATEGORY_ID NVARCHAR(255) not null,
+   BOOK_ID NVARCHAR(255) not null,
+   primary key (CATEGORY_ID, BOOK_ID)
+);
+
+-- 書籍-作者關聯表
+create table AUTHOR_BOOK_EDGE (
+  AUTHOR_ID NVARCHAR(255) not null,
+   BOOK_ID NVARCHAR(255) not null,
+   primary key (AUTHOR_ID, BOOK_ID)
+);
+
+alter table CATEGORY_BOOK_EDGE add constraint FK_CATEGORY_BOOK_EDGE_1 foreign key (CATEGORY_ID) references CATEGORY (CATEGORY_ID);
+alter table CATEGORY_BOOK_EDGE add constraint FK_CATEGORY_BOOK_EDGE_2 foreign key (BOOK_ID) references BOOK (BOOK_ID);
+alter table AUTHOR_BOOK_EDGE add constraint FK_AUTHOR_BOOK_EDGE_1 foreign key (AUTHOR_ID) references AUTHOR (AUTHOR_ID);
+alter table AUTHOR_BOOK_EDGE add constraint FK_AUTHOR_BOOK_EDGE_2 foreign key (BOOK_ID) references BOOK (BOOK_ID);
