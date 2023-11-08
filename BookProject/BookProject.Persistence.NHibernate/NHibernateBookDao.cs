@@ -1,16 +1,23 @@
 ﻿using BookProject.Contract.Domain;
 using BookProject.Contract.Persistence;
+using BookProject.Persistence.NHibernate.Utility;
 using NHibernate;
 using System.Collections;
 
-namespace BookProject.Service.Persistence.NHibernate
+namespace BookProject.Persistence.NHibernate
 {
     public class NHibernateBookDao : IBookDao
     {
+        public SessionProvider SessionProvider { get; set; }
+
         public ISession Session { get; set; }
 
         private ISession GetSession()
         {
+            if (Session == null)
+            {
+                Session = SessionProvider.GetSession();
+            }
             return Session;
         }
 
@@ -54,20 +61,32 @@ namespace BookProject.Service.Persistence.NHibernate
         public void Create(Book book)
         {
             ISession session = GetSession();
-            session.Save(book);
+            using (ITransaction transaction = session.BeginTransaction())
+            {
+                session.Save(book);
+                transaction.Commit();
+            }
         }
 
         public void Update(Book book)
         {
             ISession session = GetSession();
-            session.SaveOrUpdate(book);
+            using (ITransaction transaction = session.BeginTransaction())
+            {
+                session.SaveOrUpdate(book);
+                transaction.Commit();
+            }
         }
 
         public void Delete(Book book)
         {
             ISession session = GetSession();
-            session.Delete(book);
-            session.Flush();
+            using (ITransaction transaction = session.BeginTransaction())
+            {
+                session.Delete(book);
+                session.Flush();
+                transaction.Commit();
+            }
         }
 
 

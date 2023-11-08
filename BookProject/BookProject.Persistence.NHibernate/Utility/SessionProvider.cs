@@ -3,17 +3,47 @@ using NHibernate.Cfg;
 
 namespace BookProject.Persistence.NHibernate.Utility
 {
-    public class SessionFactoryProvider
+    public class SessionProvider
     {
+        /// <summary>
+        /// nhibernate.cfg.xml 設定檔路徑。
+        /// </summary>
+        public string ConfigurationPath { get; set; }
+
+        /// <summary>
+        /// 要連線的資料庫類型。
+        /// </summary>
+        public DatabaseType DatabaseType { get; set; }
+
+        /// <summary>
+        /// 建立 Session 的連線字串。
+        /// </summary>
+        public string ConnectionString { get; set; }
+
+        /// <summary>
+        /// 各 NHibernate Dao 共用的 Session。
+        /// </summary>
+        private ISession Session { get; set; }
+
+        public ISession GetSession()
+        {
+            if (Session == null)
+            {
+                ISessionFactory sessionFactory = GetSessionFactory(this.DatabaseType, this.ConnectionString);
+                Session = sessionFactory.OpenSession();
+            }
+            return Session;
+        }
+
         /// <summary>
         /// 依照 nhibernate.cfg.xml 的連線設定產生 SessionFactory。
         /// </summary>
         /// <param name="nHibernateConfigPath">nhibernate.cfg.xml 的路徑。</param>
-        public static ISessionFactory GetSessionFactory(DatabaseType databaseType, string connectionString)
+        public ISessionFactory GetSessionFactory(DatabaseType databaseType, string connectionString)
         {
             // 讀取 nhibernate.cfg.xml 的設定內容
             Configuration nhibernateConfig = new Configuration();
-            nhibernateConfig.Configure(@"Configuration/nhibernate.cfg.xml");
+            nhibernateConfig.Configure(ConfigurationPath);
             nhibernateConfig.SetProperty(Environment.ConnectionString, connectionString);
 
             switch (databaseType)
