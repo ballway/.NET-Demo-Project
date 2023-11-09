@@ -29,7 +29,7 @@ namespace BookProject.Persistence.NHibernate.Utility
         {
             if (Session == null)
             {
-                ISessionFactory sessionFactory = GetSessionFactory(this.DatabaseType, this.ConnectionString);
+                ISessionFactory sessionFactory = GetSessionFactory();
                 Session = sessionFactory.OpenSession();
             }
             return Session;
@@ -39,14 +39,14 @@ namespace BookProject.Persistence.NHibernate.Utility
         /// 依照 nhibernate.cfg.xml 的連線設定產生 SessionFactory。
         /// </summary>
         /// <param name="nHibernateConfigPath">nhibernate.cfg.xml 的路徑。</param>
-        public ISessionFactory GetSessionFactory(DatabaseType databaseType, string connectionString)
+        private ISessionFactory GetSessionFactory()
         {
             // 讀取 nhibernate.cfg.xml 的設定內容
             Configuration nhibernateConfig = new Configuration();
             nhibernateConfig.Configure(ConfigurationPath);
-            nhibernateConfig.SetProperty(Environment.ConnectionString, connectionString);
+            nhibernateConfig.SetProperty(Environment.ConnectionString, this.ConnectionString);
 
-            switch (databaseType)
+            switch (this.DatabaseType)
             {
                 case DatabaseType.SQLite:
                     nhibernateConfig.SetProperty(Environment.ConnectionDriver, "NHibernate.Driver.SQLite20Driver");

@@ -17,10 +17,14 @@ namespace BookProject.Persistence.NHibernate.Test
             string configurationPath = Path.GetFullPath(@"Configuration\\nhibernate.cfg.xml");
             string databasePath = Path.GetFullPath(@"Database\\Mike_Library.db3");
             string connectionString = @"Data Source=" + databasePath + ";";
-            SessionProvider sessionProvider = new SessionProvider();
-            sessionProvider.ConfigurationPath = configurationPath;
-            ISessionFactory sessionFactory = sessionProvider.GetSessionFactory(DatabaseType.SQLite, connectionString);
-            bookDao.Session = sessionFactory.OpenSession();
+
+            SessionProvider sessionProvider = new SessionProvider
+            {
+                ConfigurationPath = configurationPath,
+                DatabaseType = DatabaseType.SQLite,
+                ConnectionString = connectionString
+            };
+            bookDao.Session = sessionProvider.GetSession();
         }
 
         [Test]
