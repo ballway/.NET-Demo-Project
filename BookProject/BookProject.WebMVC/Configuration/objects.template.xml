@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+	<!-- BookProject.WebMVC -->
+	<object id="BookController"  type="BookProject.WebMVC.Controllers.BookController, BookProject.WebMVC" singleton="false">
+		<property name="BookService" ref="BookService" />
+	</object>
+	<!-- BookProject.Service -->
+	<object id="BookService" type="BookProject.Service.BookService, BookProject.Service">
+		<property name="BookDao" ref="NHibernateBookDao" />
+	</object>
+	<!-- BookProject.Persistence.Dummy -->
+	<!-- <object id="DummyBookDao" type="BookProject.Persistence.Dummy.DummyBookDao, BookProject.Persistence.Dummy"/> -->
+	<!-- BBookProject.Persistence.NHibernate -->
+	<object id="NHibernateBookDao" type="BookProject.Persistence.NHibernate.NHibernateBookDao, BookProject.Persistence.NHibernate">
+		<property name="SessionProvider" ref="SessionProvider" />
+	</object>
+	<object id="SessionProvider" type="BookProject.Persistence.NHibernate.Utility.SessionProvider, BookProject.Persistence.NHibernate">
+		<property name="ConfigurationPath" value="D:\Source\.NET-Demo-Project\BookProject\BookProject.WebMVC\Configuration\nhibernate.cfg.xml" />
+		<property name="DatabaseType" value="${db.type}" />
+		<property name="ConnectionString" value="${db.connectionstring}" />
+	</object>
+	<!-- 設定檔變數 -->
+	<object type="Spring.Objects.Factory.Config.PropertyPlaceholderConfigurer, Spring.Core">
+		<property name="Properties">
+			<name-values>
+				<add key="db.type" value="SQLite" />
+				<add key="db.connectionstring" value="Data Source=D:\Source\.NET-Demo-Project\BookProject\BookProject.WebMVC\Database\Mike_Library.db3;" />
+			</name-values>
+		</property>
+	</object>
+</objects>
