@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-configuration xmlns="urn:nhibernate-configuration-2.2">
+	<session-factory>
+		<property name="show_sql">true</property>
+		<property name="format_sql">true</property>
+		<property name="query.substitutions">true 1, false 0, yes 'Y', no 'N', True 1, False 0</property>
+		<property name="show_sql">false</property>
+		<property name="max_fetch_depth">0</property>
+		<property name="command_timeout">30</property>
+		<property name="use_sql_comments">true</property>
+		<!-- Mapping files -->
+		<!--<mapping file="Persistence\NHibernate\Mapping\Book.hbm.xml"  />-->
+		<mapping assembly="BookProject.Persistence.NHibernate"/>
+	</session-factory>
+</hibernate-configuration>
