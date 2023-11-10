@@ -1,15 +1,17 @@
 ﻿using BookProject.Contract.DTO;
 using BookProject.Contract.Service;
-using BookProject.Persistence.Dummy;
-using Newtonsoft.Json;
+using log4net;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Web.Mvc;
 
 namespace BookProject.WebMVC.Controllers
 {
     public class BookController : Controller
     {
+        private readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         public IBookService BookService { get; set; }
 
         public ActionResult Index()
@@ -47,6 +49,7 @@ namespace BookProject.WebMVC.Controllers
             }
             catch (Exception ex)
             {
+                _logger.Error(ex);
                 return Json(ex.Message, JsonRequestBehavior.AllowGet);
             }
         }
