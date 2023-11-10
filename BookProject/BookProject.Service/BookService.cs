@@ -113,7 +113,9 @@ namespace BookProject.Service
                 throw new BookNotExistException(bookInfo.BookId);
             }
 
-            Book book = _bookConverter.ToDomainObject(bookInfo);
+            Book book = BookDao.Get(bookInfo.BookId);
+            book.DisplayName = bookInfo.DisplayName;
+            book.LastModifiedDateTime = bookInfo.LastModifiedDateTime;
             BookDao.Update(book);
         }
 
