@@ -19,9 +19,9 @@ BookProject 是一個以 C# 實作的 Demo 專案，內容包含：
 
 **Frontend:** HTML, CSS, JavaScript, jQuery
 
-**Backend:** ASP.NET, ASP.NET Core
+**Backend:** [ASP.NET](https://learn.microsoft.com/zh-tw/aspnet/overview), [ASP.NET Core](https://learn.microsoft.com/zh-tw/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-6.0)
 
-**Logger:** [NLog](https://nlog-project.org/)
+**Logger:** [NLog](https://nlog-project.org/), [log4net](https://logging.apache.org/log4net/)
 
 **IoC Framework:** [Autofac](https://autofac.org/), [Spring.NET](https://www.springframework.net/)
 
