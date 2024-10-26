@@ -4,6 +4,7 @@ using BookProject.Contract.DTOConverter;
 using BookProject.Contract.Exceptions;
 using BookProject.Contract.Persistence;
 using BookProject.Contract.Service;
+using BookProject.Utility;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -27,7 +28,7 @@ namespace BookProject.Service
         public BookInfo GetBookById(string bookId)
         {
             // 檢查參數
-            if (string.IsNullOrEmpty(bookId))
+            if (bookId.IsNullOrEmpty())
             {
                 throw new EmptyBookIdException();
             }
@@ -46,7 +47,7 @@ namespace BookProject.Service
         public List<AuthorInfo> GetBookAuthors(string bookId)
         {
             // 檢查參數
-            if (string.IsNullOrEmpty(bookId))
+            if (bookId.IsNullOrEmpty())
             {
                 throw new EmptyBookIdException();
             }
@@ -65,7 +66,7 @@ namespace BookProject.Service
         public List<CategoryInfo> GetBookCategories(string bookId)
         {
             // 檢查參數
-            if (string.IsNullOrEmpty(bookId))
+            if (bookId.IsNullOrEmpty())
             {
                 throw new EmptyBookIdException();
             }
@@ -122,7 +123,7 @@ namespace BookProject.Service
         public void DeleteBookById(string bookId)
         {
             // 檢查參數
-            if (string.IsNullOrEmpty(bookId))
+            if (bookId.IsNullOrEmpty())
             {
                 throw new EmptyBookIdException();
             }

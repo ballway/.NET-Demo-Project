@@ -22,6 +22,7 @@
     <ProjectReference Include="..\BookProject.Persistence.Dummy\BookProject.Persistence.Dummy.csproj" />
     <ProjectReference Include="..\BookProject.Persistence.NHibernate\BookProject.Persistence.NHibernate.csproj" />
     <ProjectReference Include="..\BookProject.Service\BookProject.Service.csproj" />
+    <ProjectReference Include="..\BookProject.Utility\BookProject.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>
